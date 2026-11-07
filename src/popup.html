@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Panopto 字幕下载器</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <span class="logo">字</span>
+      <div class="brand-text">
+        <h1>Panopto 字幕下载器</h1>
+        <p class="sub">SRT · VTT · TXT</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="status" id="status">
+    <div class="status-line">
+      <span class="dot" id="dot"></span>
+      <span id="statusText">正在检测当前页面…</span>
+    </div>
+    <p class="title" id="titleText"></p>
+  </section>
+
+  <section class="controls">
+    <label class="field">
+      <span class="label">下载格式</span>
+      <select id="format">
+        <option value="srt">SRT 字幕（推荐，可导入剪辑软件）</option>
+        <option value="vtt">WebVTT 字幕（网页播放器）</option>
+        <option value="txt">TXT 文字稿（带 [时间戳]）</option>
+        <option value="plain">TXT 纯文字（适合做笔记/翻译）</option>
+      </select>
+    </label>
+
+    <label class="switch">
+      <input type="checkbox" id="folder" />
+      <span>保存到 <code>Panopto字幕/</code> 子文件夹</span>
+    </label>
+
+    <label class="switch">
+      <input type="checkbox" id="auto" />
+      <span>打开录屏页面时自动下载（每节课一次）</span>
+    </label>
+  </section>
+
+  <section class="actions">
+    <button id="download" class="btn primary">
+      <span class="btn-label">下载当前录屏字幕</span>
+      <span class="spinner" hidden></span>
+    </button>
+    <button id="downloadAll" class="btn ghost" hidden>下载本页全部录屏字幕</button>
+  </section>
+
+  <p class="message" id="message" role="status"></p>
+
+  <footer class="footer">
+    <p>字幕来自 Panopto 自带的 <b>Captions / Transcript</b>，无需录屏者权限。</p>
+    <p id="hint">如果没反应：先点开播放器里的 <b>Transcript / 文字稿</b> 标签，再点一次。</p>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

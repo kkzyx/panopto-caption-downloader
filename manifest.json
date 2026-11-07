@@ -1,0 +1,67 @@
+{
+  "manifest_version": 3,
+  "name": "Panopto 字幕下载器",
+  "short_name": "Panopto 字幕",
+  "version": "1.0.0",
+  "description": "一键下载 Panopto 录屏的字幕/文字稿（SRT / VTT / TXT），支持 HKU Panopto 等任意 Panopto 站点。",
+  "minimum_chrome_version": "111",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "downloads",
+    "storage",
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "*://*.panopto.com/*",
+    "*://*.panopto.eu/*",
+    "*://*.panopto.com.au/*",
+    "*://*.panopto.ca/*"
+  ],
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.panopto.com/*",
+        "*://*.panopto.eu/*",
+        "*://*.panopto.com.au/*",
+        "*://*.panopto.ca/*"
+      ],
+      "js": [
+        "src/hook.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true,
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "*://*.panopto.com/*",
+        "*://*.panopto.eu/*",
+        "*://*.panopto.com.au/*",
+        "*://*.panopto.ca/*"
+      ],
+      "js": [
+        "src/lib/parse.js",
+        "src/content.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ],
+  "action": {
+    "default_title": "下载本页 Panopto 字幕",
+    "default_popup": "src/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  }
+}
